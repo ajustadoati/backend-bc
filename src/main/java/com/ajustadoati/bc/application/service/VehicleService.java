@@ -6,12 +6,16 @@ import com.ajustadoati.bc.adapter.rest.repository.VehicleRepository;
 import com.ajustadoati.bc.adapter.rest.repository.VehicleTypeRepository;
 import com.ajustadoati.bc.application.dto.VehicleDto;
 import com.ajustadoati.bc.domain.Vehicle;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class VehicleService {
 
   private final VehicleRepository vehicleRepository;
@@ -57,6 +61,7 @@ public class VehicleService {
   }
 
   public void deleteVehicle(int id) {
+    log.info("Deleting vehicle with id: {}", id);
     if (!vehicleRepository.existsById(id)) {
       throw new VehicleNotFoundException("Vehicle not found with id: " + id);
     }
