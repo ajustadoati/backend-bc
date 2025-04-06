@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,12 @@ public class DailyPaymentService {
     dailyPayment.setUser(user);
 
     // Set UserColector entity
+    if(Objects.nonNull(dailyPaymentDto.getUserColectorId())) {
+      User userColector = new User();
+      userColector.setUserId(dailyPaymentDto.getUserColectorId());
+      dailyPayment.setUserColector(userColector);
+    }
+
     User userColector = new User();
     userColector.setUserId(dailyPaymentDto.getUserColectorId());
     dailyPayment.setUserColector(userColector);

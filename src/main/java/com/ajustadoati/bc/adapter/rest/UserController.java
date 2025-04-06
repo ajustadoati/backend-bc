@@ -70,8 +70,8 @@ public class UserController {
   }
 
   @GetMapping("/{userId}/company")
-  public ResponseEntity<CollectionModel<EntityModel<UserDto>>> getAllUsersByCompany(@PathVariable String userId, Pageable pageable) {
-    var users = userService.getUserByUserId(userId, pageable);
+  public ResponseEntity<CollectionModel<EntityModel<UserDto>>> getAllUsersByCompany(@PathVariable Integer userId, Pageable pageable) {
+    var users = userService.getUsersByUserId(userId, pageable);
 
     PagedModel<EntityModel<UserDto>> pagedModel =
       userModelAssembler.toPagedModel(users, pagedResourcesAssembler);

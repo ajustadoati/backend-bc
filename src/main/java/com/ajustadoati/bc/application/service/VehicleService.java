@@ -35,8 +35,8 @@ public class VehicleService {
     return vehicleRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
   }
 
-  public List<VehicleDto> getAllVehiclesByUser(String numberId) {
-    var user = userRepository.findByNumberId(numberId).orElseThrow();
+  public List<VehicleDto> getAllVehiclesByUser(Integer numberId) {
+    var user = userRepository.findById(numberId).orElseThrow();
     return vehicleRepository.findAllByUser(user).stream().map(this::convertToDto).toList();
   }
 

@@ -76,8 +76,8 @@ public class UserService {
       .orElseThrow();
   }
 
-  public Page<User> getUserByUserId(String userId, Pageable pageable) {
-    var user = userRepository.findByNumberId(userId).orElseThrow();
+  public Page<User> getUsersByUserId(Integer userId, Pageable pageable) {
+    var user = userRepository.findById(userId).orElseThrow();
 
     return userRepository.findByCompany(user.getCompany(), pageable);
   }

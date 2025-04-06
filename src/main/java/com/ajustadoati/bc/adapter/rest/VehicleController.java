@@ -34,9 +34,9 @@ public class VehicleController {
     return ResponseEntity.ok(vehicle);
   }
 
-  @GetMapping("/{numberId}/user")
-  public ResponseEntity<List<VehicleDto> > getVehicleById(@PathVariable String numberId) {
-    var vehicles = vehicleService.getAllVehiclesByUser(numberId);
+  @GetMapping("/{userId}/user")
+  public ResponseEntity<List<VehicleDto> > getVehicleById(@PathVariable Integer userId) {
+    var vehicles = vehicleService.getAllVehiclesByUser(userId);
     return ResponseEntity.ok(vehicles);
   }
 
