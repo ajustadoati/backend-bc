@@ -21,7 +21,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig{
 
-  private final CustomUserDetailsService userDetailsService;
+    public static final String ADMIN = "ADMIN";
+    private final CustomUserDetailsService userDetailsService;
 
   private final JwtTokenProvider jwtTokenProvider;
 
@@ -37,11 +38,14 @@ public class SecurityConfig{
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/auth/**").permitAll()
-            .requestMatchers("/api/users/**").hasRole("ADMIN")
-            .requestMatchers("/api/vehicles/**").hasRole("ADMIN")
-            .requestMatchers("/api/vehicles-type/**").hasRole("ADMIN")
-            .requestMatchers("/api/payment-types/**").hasRole("ADMIN")
-            .requestMatchers("/api/daily-payments/**").hasRole("ADMIN")
+            .requestMatchers("/api/users/**").hasRole(ADMIN)
+            .requestMatchers("/api/expense-categories/**").hasRole(ADMIN)
+            .requestMatchers("/api/expenses/**").hasRole(ADMIN)
+            .requestMatchers("/api/workshops/**").hasRole(ADMIN)
+            .requestMatchers("/api/vehicles/**").hasRole(ADMIN)
+            .requestMatchers("/api/vehicles-type/**").hasRole(ADMIN)
+            .requestMatchers("/api/payment-types/**").hasRole(ADMIN)
+            .requestMatchers("/api/daily-payments/**").hasRole(ADMIN)
             .anyRequest().authenticated()
         )
         .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class);
