@@ -7,17 +7,17 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkshopDto {
-    private Integer companyId;
+    private Integer id;
     private String name;
     private String direction;
     private String mobileNumber;
 
-    public Integer getCompanyId() {
-        return companyId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

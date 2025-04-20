@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface WorkshopMapper {
 
-    @Mapping(target = "companyId", source = "companyId")
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
     @Mapping(target = "direction", source = "direction")
     @Mapping(target = "mobileNumber", source = "mobileNumber")
