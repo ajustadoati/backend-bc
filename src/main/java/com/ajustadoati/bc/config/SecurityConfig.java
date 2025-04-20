@@ -41,6 +41,7 @@ public class SecurityConfig{
             .requestMatchers("/api/users/**").hasRole(ADMIN)
             .requestMatchers("/api/expense-categories/**").hasRole(ADMIN)
             .requestMatchers("/api/expenses/**").hasRole(ADMIN)
+            .requestMatchers("/api/expenses-type/**").hasRole(ADMIN)
             .requestMatchers("/api/workshops/**").hasRole(ADMIN)
             .requestMatchers("/api/vehicles/**").hasRole(ADMIN)
             .requestMatchers("/api/vehicles-type/**").hasRole(ADMIN)
