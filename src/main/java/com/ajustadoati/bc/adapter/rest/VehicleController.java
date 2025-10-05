@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +44,12 @@ public class VehicleController {
   @PostMapping
   public VehicleDto createVehicle(@RequestBody VehicleDto vehicleDto) {
     return vehicleService.saveVehicle(vehicleDto);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<VehicleDto> updateVehicle(@PathVariable int id, @RequestBody VehicleDto vehicleDto) {
+    VehicleDto updatedVehicle = vehicleService.updateVehicle(id, vehicleDto);
+    return ResponseEntity.ok(updatedVehicle);
   }
 
   @DeleteMapping("/{id}")

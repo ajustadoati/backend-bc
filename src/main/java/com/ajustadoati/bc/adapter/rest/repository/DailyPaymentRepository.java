@@ -12,4 +12,6 @@ public interface DailyPaymentRepository extends JpaRepository<DailyPayment, Inte
 
   List<DailyPayment> findAllByUser(User user);
 
+  List<DailyPayment> findAllByVehicleId(Integer vehicleId);
+
 }

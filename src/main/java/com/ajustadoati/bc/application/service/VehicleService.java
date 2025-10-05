@@ -6,6 +6,8 @@ import com.ajustadoati.bc.adapter.rest.repository.VehicleRepository;
 import com.ajustadoati.bc.adapter.rest.repository.VehicleTypeRepository;
 import com.ajustadoati.bc.application.dto.VehicleDto;
 import com.ajustadoati.bc.domain.Vehicle;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class VehicleService {
 
   private final VehicleRepository vehicleRepository;
@@ -24,12 +27,9 @@ public class VehicleService {
 
   private final VehicleTypeRepository vehicleTypeRepository;
 
-  public VehicleService(VehicleRepository vehicleRepository, UserRepository userRepository,
-    VehicleTypeRepository vehicleTypeRepository) {
-    this.vehicleRepository = vehicleRepository;
-    this.userRepository = userRepository;
-    this.vehicleTypeRepository = vehicleTypeRepository;
-  }
+  private final DailyPaymentService dailyPaymentService;
+
+  private final ExpenseService expenseService;
 
   public List<VehicleDto> getAllVehicles() {
     return vehicleRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
@@ -60,11 +60,36 @@ public class VehicleService {
     return convertToDto(savedVehicle);
   }
 
+  public VehicleDto updateVehicle(int id, VehicleDto vehicleDto) {
+    Vehicle vehicle = vehicleRepository.findById(id).orElseThrow(() -> new VehicleNotFoundException("Vehicle not found with id: " + id));
+    vehicle.setNumberId(vehicleDto.getNumberId());
+    vehicle.setModel(vehicleDto.getModel());
+    vehicle.setSerial(vehicleDto.getSerial());
+    vehicle.setMarca(vehicleDto.getMarca());
+    vehicle.setCompany(vehicleDto.getCompany());
+    if (vehicleDto.getVehicleType() != null && vehicleDto.getVehicleType() > 0) {
+      var vehicleType = vehicleTypeRepository.findById(vehicleDto.getVehicleType())
+          .orElseThrow(() -> new RuntimeException("VehicleType not found with id: " + vehicleDto.getVehicleType()));
+      vehicle.setVehicleType(vehicleType);
+    }
+    Vehicle updatedVehicle = vehicleRepository.save(vehicle);
+    return convertToDto(updatedVehicle);
+  }
+
+  @Transactional
   public void deleteVehicle(int id) {
     log.info("Deleting vehicle with id: {}", id);
     if (!vehicleRepository.existsById(id)) {
       throw new VehicleNotFoundException("Vehicle not found with id: " + id);
     }
+    // Eliminar pagos diarios asociados
+    var payments = dailyPaymentService.findByVehiculeId(id);
+    payments.forEach(payment -> dailyPaymentService.deleteById(payment.getId()));
+
+    // Eliminar gastos asociados
+    var expenses = expenseService.findAllByVehicleId(id);
+    expenses.forEach(expense -> expenseService.deleteById(expense.getId()));
+
     vehicleRepository.deleteById(id);
   }
 
@@ -76,6 +101,9 @@ public class VehicleService {
     dto.setSerial(vehicle.getSerial());
     dto.setMarca(vehicle.getMarca());
     dto.setCompany(vehicle.getCompany());
+    if (vehicle.getVehicleType() != null) {
+      dto.setVehicleType(vehicle.getVehicleType().getId().intValue());
+    }
     return dto;
   }
 }

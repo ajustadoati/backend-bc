@@ -87,7 +87,18 @@ public class DailyPaymentService {
     return dailyPaymentSaved;
   }
 
-  public void deleteById(Integer id) {
+    public List<DailyPayment> findByVehiculeId(Integer vehicleId) {
+        return dailyPaymentRepository.findAllByVehicleId(vehicleId);
+    }
+
+
+    public void deleteById(Integer id) {
+    // Primero eliminar los DailyPaymentType asociados
+    var dailyPayment = dailyPaymentRepository.findById(id).orElseThrow();
+    var dailyPaymentTypes = dailyPaymentTypeRepository.findAllByDailyPayment(dailyPayment);
+    dailyPaymentTypeRepository.deleteAll(dailyPaymentTypes);
+
+    // Luego eliminar el DailyPayment
     dailyPaymentRepository.deleteById(id);
   }
 }
