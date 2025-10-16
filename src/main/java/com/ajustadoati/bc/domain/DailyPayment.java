@@ -33,6 +33,10 @@ public class DailyPayment {
   @JoinColumn(name = "user_driver_id")
   private User userDriver;
 
+  @ManyToOne
+  @JoinColumn(name = "user_second_driver_id")
+  private User userSecondDriver;
+
   private Date dailyDate;
   private Integer kilometerStart;
   private Integer kilometerEnd;
@@ -55,6 +59,14 @@ public class DailyPayment {
 
   public void setUserDriver(User userDriver) {
     this.userDriver = userDriver;
+  }
+
+  public User getUserSecondDriver() {
+    return userSecondDriver;
+  }
+
+  public void setUserSecondDriver(User userSecondDriver) {
+    this.userSecondDriver = userSecondDriver;
   }
 
   public Integer getId() {

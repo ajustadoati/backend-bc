@@ -66,9 +66,11 @@ public class DailyPaymentService {
       dailyPayment.setUserColector(userColector);
     }
 
-    User userColector = new User();
-    userColector.setUserId(dailyPaymentDto.getUserColectorId());
-    dailyPayment.setUserColector(userColector);
+    if(Objects.nonNull(dailyPaymentDto.getUserSecondDriverId())){
+        User userSecondDriver = new User();
+        userSecondDriver.setUserId(dailyPaymentDto.getUserSecondDriverId());
+        dailyPayment.setUserSecondDriver(userSecondDriver);
+    }
 
     var userDriver = new User();
     userDriver.setUserId(dailyPaymentDto.getUserDriverId());

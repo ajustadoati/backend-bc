@@ -12,14 +12,17 @@ public interface DailyPaymentMapper {
   @Mapping(target = "userId", source = "user.userId")
   @Mapping(target = "userColectorId", source = "userColector.userId")
   @Mapping(target = "userDriverId", source = "userDriver.userId")
+  @Mapping(target = "userSecondDriverId", source = "userSecondDriver.userId")
   @Mapping(target = "vehicleId", source = "vehicle.id")
   DailyPaymentDto toDto(DailyPayment dailyPayment);
 
   @Mapping(target = "id", source = "dailyPaymentId")
-  @Mapping(target = "user.userId", source = "userId")
-  @Mapping(target = "userColector.userId", source = "userColectorId")
-  @Mapping(target = "userDriver.userId", source = "userDriverId")
-  @Mapping(target = "vehicle.id", source = "vehicleId")
+  @Mapping(target = "user", ignore = true)
+  @Mapping(target = "userColector", ignore = true)
+  @Mapping(target = "userDriver", ignore = true)
+  @Mapping(target = "userSecondDriver", ignore = true)
+  @Mapping(target = "vehicle", ignore = true)
+  @Mapping(target = "dailyPaymentTypes", ignore = true)
   DailyPayment toEntity(DailyPaymentDto dailyPaymentDto);
 
 }

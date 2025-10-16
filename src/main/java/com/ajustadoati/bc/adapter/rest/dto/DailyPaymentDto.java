@@ -16,6 +16,7 @@ public class DailyPaymentDto {
   private Integer userId;
   private Integer userColectorId;
   private Integer userDriverId;
+  private Integer userSecondDriverId;
   private Integer vehicleId;
   private Date dailyDate;
   private Integer kilometerStart;
@@ -28,6 +29,14 @@ public class DailyPaymentDto {
 
   public void setUserDriverId(Integer userDriverId) {
     this.userDriverId = userDriverId;
+  }
+
+  public Integer getUserSecondDriverId() {
+    return userSecondDriverId;
+  }
+
+  public void setUserSecondDriverId(Integer userSecondDriverId) {
+    this.userSecondDriverId = userSecondDriverId;
   }
 
   public Integer getDailyPaymentId() {
