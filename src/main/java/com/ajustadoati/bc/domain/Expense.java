@@ -17,6 +17,7 @@ public class Expense {
     private Integer kilometer;
     private BigDecimal amount;
     private BigDecimal labour;
+    private BigDecimal amountDl;
 
     @ManyToOne
     @JoinColumn(name = "expense_type_id")
@@ -100,6 +101,14 @@ public class Expense {
 
     public void setWorkshop(Workshop workshop) {
         this.workshop = workshop;
+    }
+
+    public BigDecimal getAmountDl() {
+        return amountDl;
+    }
+
+    public void setAmountDl(BigDecimal amountDl) {
+        this.amountDl = amountDl;
     }
 
 }

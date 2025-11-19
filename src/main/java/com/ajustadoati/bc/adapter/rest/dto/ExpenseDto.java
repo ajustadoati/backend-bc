@@ -15,6 +15,7 @@ public class ExpenseDto {
     private String description;
     private Integer kilometer;
     private BigDecimal amount;
+    private BigDecimal amountDl;
     private BigDecimal labour;
 
     public Integer getId() {
@@ -87,6 +88,14 @@ public class ExpenseDto {
 
     public void setLabour(BigDecimal labour) {
         this.labour = labour;
+    }
+
+    public BigDecimal getAmountDl() {
+        return amountDl;
+    }
+
+    public void setAmountDl(BigDecimal amountDl) {
+        this.amountDl = amountDl;
     }
 
 }
