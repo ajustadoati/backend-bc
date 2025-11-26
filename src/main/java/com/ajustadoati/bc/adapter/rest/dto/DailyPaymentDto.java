@@ -21,6 +21,7 @@ public class DailyPaymentDto {
   private Date dailyDate;
   private Integer kilometerStart;
   private Integer kilometerEnd;
+  private String description;
   List<DailyPaymentTypeDto> dailyPaymentTypes;
 
   public Integer getUserDriverId() {
@@ -99,7 +100,15 @@ public class DailyPaymentDto {
     return dailyPaymentTypes;
   }
 
-  public void setDailyPaymentTypes(
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDailyPaymentTypes(
     List<DailyPaymentTypeDto> dailyPaymentTypes) {
     this.dailyPaymentTypes = dailyPaymentTypes;
   }

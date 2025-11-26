@@ -40,6 +40,7 @@ public class DailyPayment {
   private Date dailyDate;
   private Integer kilometerStart;
   private Integer kilometerEnd;
+  private String description;
 
   @OneToMany(mappedBy = "dailyPayment", fetch = FetchType.LAZY)
   private List<DailyPaymentType> dailyPaymentTypes;
@@ -124,4 +125,13 @@ public class DailyPayment {
   public void setKilometerEnd(Integer kilometerEnd) {
     this.kilometerEnd = kilometerEnd;
   }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }
